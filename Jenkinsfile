@@ -12,7 +12,6 @@ pipeline {
     }
 
     stage('Staging') {
-      
       parallel {
         stage('Testing') {
           steps {
