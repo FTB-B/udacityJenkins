@@ -15,7 +15,6 @@ pipeline {
       parallel {
         stage('Testing') {
           steps {
-            sh 'tidy -q -e *.html'
             echo 'Entering Test stage'
           }
         }
