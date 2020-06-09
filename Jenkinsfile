@@ -20,8 +20,6 @@ pipeline {
 
 
     stage('Staging') {
-
-    stage('Testing') {
       when {
         branch 'Staging'
       }
@@ -65,8 +63,9 @@ pipeline {
             withAWS(credentials: 'FTC3', region: 'us-east-1') {
               s3Upload(bucket: 'static-jenkins-pipeline-ft', pathStyleAccessEnabled: true, payloadSigningEnabled: true, file: 'index.html')
             }
-
           }
-
+          }
+       }
+     }
   }
 }
