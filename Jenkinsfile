@@ -3,7 +3,11 @@ pipeline {
   stages {
     stage('Build') {
       when {
+
         branch 'Developement'
+
+        branch 'master'
+
       }
       steps {
         sh 'echo "Hello World"'
@@ -14,13 +18,37 @@ pipeline {
       }
     }
 
-    stage('Lint HTML') {
-      steps {
-        sh 'tidy -q -e *.html'
+
+    stage('Testing') {
+      when {
+        branch 'Staging'
+      }
+      parallel {
+        stage('Testing') {
+          steps {
+            echo 'Entering Test stage'
+          }
+        }
+
+        stage('Lint Html') {
+          steps {
+            sh 'tidy -q -e *.html'
+          }
+        }
+
+        stage('Integreation Test') {
+          steps {
+            echo 'Integration Test'
+          }
+        }
+
       }
     }
 
     stage('Upload to AWS') {
+      when {
+        branch 'Deployment'
+      }
       steps {
         withAWS(region: 'us-east-1', credentials: 'FTC3') {
           sh 'echo "Uploading content with AWS creds"'
