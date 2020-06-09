@@ -12,9 +12,7 @@ pipeline {
     }
 
     stage('Staging') {
-      when {
-        branch 'Deployment'
-      }
+      
       parallel {
         stage('Testing') {
           steps {
@@ -38,6 +36,9 @@ pipeline {
     }
 
     stage('Deployment') {
+      when {
+        branch 'Deployment'
+      }
       parallel {
         stage('Deployment') {
           steps {
