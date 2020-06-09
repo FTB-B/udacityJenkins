@@ -38,17 +38,17 @@ pipeline {
       parallel {
         stage('Deployment') {
           steps {
-            withAWS(region: 'us-east-1', credentials: 'FTC3') {
-              sh 'echo "Uploading content with AWS creds"'
-            }
-
+            echo 'Deployment stage'
           }
         }
 
         stage('Upload to AWS') {
           steps {
             echo 'echo "Uploading content with AWS creds"'
-            s3Upload(bucket: 'static-jenkins-pipeline-ft', pathStyleAccessEnabled: true, payloadSigningEnabled: true)
+            withAWS(credentials: 'FTC3', region: 'us-east-1') {
+              s3Upload(bucket: 'static-jenkins-pipeline-ft', pathStyleAccessEnabled: true, payloadSigningEnabled: true)
+            }
+
           }
         }
 
