@@ -2,6 +2,9 @@ pipeline {
   agent any
   stages {
     stage('Build') {
+      when {
+        branch 'master'
+      }
       steps {
         sh 'echo "Hello World"'
         sh '''
@@ -10,6 +13,7 @@ pipeline {
                  '''
       }
     }
+
 
     stage('Testing') {
       when {
@@ -38,6 +42,9 @@ pipeline {
     }
 
     stage('Upload to AWS') {
+      when {
+        branch 'Deployment'
+      }
       steps {
         withAWS(region: 'us-east-1', credentials: 'FTC3') {
           sh 'echo "Uploading content with AWS creds"'
