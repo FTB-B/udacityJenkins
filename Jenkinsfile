@@ -2,6 +2,9 @@ pipeline {
   agent any
   stages {
     stage('Build') {
+      when {
+        branch 'Developement'
+      }
       steps {
         sh 'echo "Hello World"'
         sh '''
