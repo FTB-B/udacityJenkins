@@ -12,7 +12,7 @@ pipeline {
     }
 
     stage('Lint HTML') {
-      when{
+      when {
         branch 'Staging'
       }
       steps {
@@ -21,7 +21,7 @@ pipeline {
     }
 
     stage('Upload to AWS') {
-      when{
+      when {
         branch 'Deployment'
       }
       steps {
