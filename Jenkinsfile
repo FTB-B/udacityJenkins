@@ -12,6 +12,9 @@ pipeline {
     }
 
     stage('Testing') {
+      when {
+        branch 'Staging'
+      }
       parallel {
         stage('Testing') {
           steps {
