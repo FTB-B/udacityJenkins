@@ -15,12 +15,11 @@ pipeline {
       parallel {
         stage('Testing') {
           steps {
-            sh 'tidy -q -e *.html'
             echo 'Entering Test stage'
           }
         }
 
-        stage('Lint Html') {
+        stage('Lint HTML') {
           steps {
             sh 'tidy -q -e *.html'
           }
