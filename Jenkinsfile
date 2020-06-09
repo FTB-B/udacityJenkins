@@ -46,7 +46,7 @@ pipeline {
           steps {
             echo 'echo "Uploading content with AWS creds"'
             withAWS(credentials: 'FTC3', region: 'us-east-1') {
-              s3Upload(bucket: 'static-jenkins-pipeline-ft', pathStyleAccessEnabled: true, payloadSigningEnabled: true)
+              s3Upload(bucket: 'static-jenkins-pipeline-ft', pathStyleAccessEnabled: true, payloadSigningEnabled: true, file: 'index.html')
             }
 
           }
