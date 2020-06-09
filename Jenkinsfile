@@ -3,7 +3,11 @@ pipeline {
   stages {
     stage('Build') {
       when {
+
+        branch 'Developement'
+
         branch 'master'
+
       }
       steps {
         sh 'echo "Hello World"'
