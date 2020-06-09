@@ -12,12 +12,18 @@ pipeline {
     }
 
     stage('Lint HTML') {
+      when{
+        branch 'Staging'
+      }
       steps {
         sh 'tidy -q -e *.html'
       }
     }
 
     stage('Upload to AWS') {
+      when{
+        branch 'Deployment'
+      }
       steps {
         withAWS(region: 'us-east-1', credentials: 'FTC3') {
           sh 'echo "Uploading content with AWS creds"'
