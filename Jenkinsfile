@@ -11,9 +11,27 @@ pipeline {
       }
     }
 
-    stage('Lint HTML') {
-      steps {
-        sh 'tidy -q -e *.html'
+    stage('Testing') {
+      parallel {
+        stage('Testing') {
+          steps {
+            sh 'tidy -q -e *.html'
+            echo 'Entering Test stage'
+          }
+        }
+
+        stage('Lint Html') {
+          steps {
+            sh 'tidy -q -e *.html'
+          }
+        }
+
+        stage('Integreation Test') {
+          steps {
+            echo 'Integration Test'
+          }
+        }
+
       }
     }
 
