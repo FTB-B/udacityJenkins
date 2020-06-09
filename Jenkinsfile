@@ -2,6 +2,13 @@ pipeline {
   agent any
   stages {
     stage('Build') {
+      when {
+
+        branch 'Developement'
+
+        branch 'master'
+
+      }
       steps {
         sh 'echo "Hello World"'
         sh '''
@@ -11,7 +18,13 @@ pipeline {
       }
     }
 
+
     stage('Staging') {
+
+    stage('Testing') {
+      when {
+        branch 'Staging'
+      }
       parallel {
         stage('Testing') {
           steps {
@@ -34,6 +47,7 @@ pipeline {
       }
     }
 
+
     stage('Deployment') {
       when {
         branch 'Deployment'
@@ -53,10 +67,6 @@ pipeline {
             }
 
           }
-        }
-
-      }
-    }
 
   }
 }
