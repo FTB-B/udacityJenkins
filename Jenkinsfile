@@ -3,11 +3,8 @@ pipeline {
   stages {
     stage('Build') {
       when {
-
         branch 'Developement'
-
         branch 'master'
-
       }
       steps {
         sh 'echo "Hello World"'
@@ -17,7 +14,6 @@ pipeline {
                  '''
       }
     }
-
 
     stage('Testing') {
       when {
@@ -44,7 +40,6 @@ pipeline {
 
       }
     }
-      
 
     stage('Upload to AWS') {
       when {
@@ -56,6 +51,12 @@ pipeline {
           s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file: 'index.html', bucket: 'static-jenkins-pipeline-ft')
         }
 
+      }
+    }
+
+    stage('Security Scan') {
+      steps {
+        aquaMicroscanner(imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'txt')
       }
     }
 
